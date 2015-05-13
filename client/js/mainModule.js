@@ -1,4 +1,4 @@
-var dutchAuction = angular.module('dutchAuctionApp', ['ngRoute', 'app.loginCtrl']);
+var dutchAuction = angular.module('dutchAuctionApp', ['ngRoute', 'app.loginCtrl', 'app.adminCtrl']);
 dutchAuction.config(['$routeProvider', '$provide', function ($routeProvider) {
         $routeProvider
                 .when('/',
@@ -13,5 +13,10 @@ dutchAuction.config(['$routeProvider', '$provide', function ($routeProvider) {
                         {
                             templateUrl: 'views/login.html',
                             controller: 'LoginCtrl'
+                        })
+                .when('/Admin',
+                        {
+                            templateUrl: 'views/admin.html',
+                            controller: 'AdminCtrl'
                         });
     }]);

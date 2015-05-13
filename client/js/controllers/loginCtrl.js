@@ -1,6 +1,6 @@
 var loginCtrl = angular.module('app.loginCtrl', ['ngCookies'])
         .controller('LoginCtrl', ['$scope', '$http', '$cookieStore', '$location',
-            function ($scope, $http, $cookieStore, $rootScope, $location) {
+            function ($scope, $http, $cookieStore, $location) {
                 $scope.submit = submit;
 
                 function submit() {
@@ -9,6 +9,7 @@ var loginCtrl = angular.module('app.loginCtrl', ['ngCookies'])
                         params: {'username': $scope.user_name, 'role': $scope.role}})
                             .success(function (data) {
                                 $cookieStore.put('username', data.username);
+                                $location.path = '/Game';
                             })
                             .error(function () {
                                 $location.path = '/Error';
