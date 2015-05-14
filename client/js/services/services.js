@@ -1,6 +1,5 @@
-'use strict';
-
 var baseUrl = "http://localhost:1337/";
+
 
 angular.module('app.services', ['ngResource'])
     .factory('loginService', [
@@ -13,7 +12,6 @@ angular.module('app.services', ['ngResource'])
     .factory('getUsersService', [
         '$resource', function ($resource) {
             return $resource(baseUrl + "GetUsers", {}, {
-
             });
         }
     ])

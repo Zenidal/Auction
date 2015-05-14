@@ -16,8 +16,8 @@ dutchAuction.config(['$routeProvider', '$provide', function ($routeProvider) {
                     })
             .when('/Users',
                     {
-                        templateUrl: 'views/admin.html',
-                        controller: 'AdminCtrl'
+                        templateUrl: 'views/users.html',
+                        controller: 'UsersCtrl'
                     });
 }]);
 

@@ -23,8 +23,30 @@ angular.module('app.controllers', [])
             }
         }])
 
-    .controller('AdminCtrl', ['$scope', '$http','$location',
-        function ($scope, $http,  $location) {
+    .controller('UsersCtrl', ['$scope', '$location', 'authService', 'getUsersService', '$interval',
+        function ($scope, $location, authService, getUsersService, $interval) {
+            if (!authService.authentication.isAuth) {
+                $location.path('/Login');
+            } else {
+                $scope.currentUser = authService.authentication;
 
+                var usersListInterval = $interval(function () {
+                    if ($scope.refreshUsersListTime == 0) {
+                        $scope.refreshUsersList();
+                    } else {
+                        $scope.refreshUsersListTime--;
+                    }
+                }, 1000);
+
+                $scope.refreshUsersList = function () {
+                    $scope.refreshUsersListTime = 3;
+                    $scope.usersList = getUsersService.query();
+                }
+
+                $scope.refreshUsersList();
+                $scope.$on('$destroy', function () {
+                    $interval.cancel(usersListInterval);
+                });
+            }
         }]);
 

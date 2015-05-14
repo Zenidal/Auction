@@ -2,6 +2,8 @@
 var express = require('express');
 var app = express();
 var user = require('./user');
+var config = required('./configuration');
+
 
 function setResHeader(req, res, next) {
     res.header('Content-Type', 'application/json');
