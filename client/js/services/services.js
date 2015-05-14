@@ -16,10 +16,9 @@ angular.module('app.services', ['ngResource'])
         }
     ])
     .factory('authService', [
-        '$http', '$q', 'localStorageService',
-        function ($http, $q, localStorageService) {
+        '$http', '$q', '$rootScope',
+        function ($http, $q, $rootScope) {
             var authServiceFactory = {};
-
             var authentication = {
                 isAuth: false,
                 role: undefined,
@@ -30,16 +29,11 @@ angular.module('app.services', ['ngResource'])
                 var data = "name=" + loginData.name + "&role=" + loginData.role;
                 var deferred = $q.defer();
                 $http.get(baseUrl + "Login" + '?' + data.toString(), { headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, data: data }).success(function (response) {
-                    console.log(localStorageService.set);
-                    if (localStorageService.get('authorizationData')) {
-                        localStorageService.set('authorizationData', { name: loginData.name, role: loginData.role });
-                    } else {
-                        localStorageService.add('authorizationData', { name: loginData.name, role: loginData.role });
-                    }
-
+                    
                     authentication.isAuth = true;
                     authentication.role = loginData.role;
                     authentication.name = loginData.name;
+                    $rootScope.authentication = authentication;
                     deferred.resolve(response);
 
                 }).error(function (err, status) {
@@ -51,24 +45,14 @@ angular.module('app.services', ['ngResource'])
             };
 
             var logOut = function () {
-                localStorageService.remove('authorizationData');
                 authentication.isAuth = false;
                 authentication.role = undefined;
                 authentication.name = undefined;
-            }
-
-            var fillAuthData = function () {
-                var authData = localStorageService.get('authorizationData');
-                if (authData) {
-                    authentication.isAuth = true;
-                    authentication.role = authData.role;
-                    authentication.name = authData.name;
-                }
+                $rootScope.authentication = authentication;
             }
 
             authServiceFactory.login = login;
             authServiceFactory.logOut = logOut;
-            authServiceFactory.fillAuthData = fillAuthData;
             authServiceFactory.authentication = authentication;
 
             return authServiceFactory;

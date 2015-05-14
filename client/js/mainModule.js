@@ -23,6 +23,5 @@ dutchAuction.config(['$routeProvider', '$provide', function ($routeProvider) {
 
 dutchAuction.run([
     'authService', function (authService) {
-        authService.fillAuthData();
     }
 ]);
