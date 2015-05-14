@@ -2,6 +2,7 @@
     <div class="container">
         <form role="form" ng-submit="submit()" class="css-form">
             <div class="form-group">
+                <div>{{errorMessage}}</div>
                 <label for="inputUserName">Login</label>
                 <input type="text" class="form-control" ng-model="user_name" id="inputUserName" placeholder="Enter login" ng-required="true">
             </div>
@@ -16,7 +17,7 @@
                     </option>
                 </select>
             </div>
-            <input class="btn btn-default" type="submit" value="Submit"/>
+            <input class="btn btn-default" type="submit" value="Submit" />
         </form>
     </div>
 </div>

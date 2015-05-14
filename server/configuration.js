@@ -2,23 +2,26 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
-var maxPrice = 100;
-var minPrice = getRandomInt(1, maxPrice - 1);
-var k = getRandomInt(1, 10);
-var m = getRandomInt(5, 20);
 
 var getMaxPrice = function () {
-    return maxPrice;
+    return 100;
 };
 
 var getMinPrice = function () {
-    return minPrice;
+    return getRandomInt(1, 100 - 1);
 };
 
 var getK = function () {
-    return k;
+    return getRandomInt(1, 10);
 };
 
 var getM = function () {
-    return m;
+    return getRandomInt(5, 20);
 };
+
+module.exports.getM = getM;
+module.exports.getK = getK;
+module.exports.getMinPrice = getMinPrice;
+module.exports.getMaxPrice = getMaxPrice;
+module.exports.getRandomInt = getRandomInt;
+

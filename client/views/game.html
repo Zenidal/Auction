@@ -1,1 +1,15 @@
-﻿Gaming
+﻿<div align="center">
+    <div>
+        {{stateMessage}}
+    </div>
+    <div ng-show="gameState.isCreated && gameState.isBegin">
+        Update price after {{M}} seconds <br>
+        Session: {{session.id}}<br>
+        Name: {{session.product.name}} <br>
+        MinPrice: {{session.product.minPrice}}<br>
+        CurrentPrice: {{session.product.price}}
+        <div class="btn btn-primary create-game" ng-click="buy()">
+            Buy
+        </div>
+    </div>
+</div>
