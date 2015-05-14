@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var user = require('./user');
-var config = required('./configuration');
+var config = require('./configuration');
 
 
 function setResHeader(req, res, next) {
