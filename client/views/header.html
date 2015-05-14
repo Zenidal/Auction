@@ -10,14 +10,10 @@
             <a class="navbar-brand" href="#/">Dutch auction</a>
         </div>
         <div class="collapse navbar-collapse" id="responsive-menu">
-            <div class="nav navbar-form navbar-right" ng-show="user.isAuth">
-                <ul class="nav navbar-nav">
-                    <li><a href="">{{user.name}} ({{user.role}})</a></li>
-                    <li><a href="" ng-click="logOut()">LogOut</a></li>
-                </ul>
-            </div>
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" ng-show="user.isAuth">
                 <li><a href="#/Game">Game</a></li>
+                <li><a href="">{{user.name}} ({{user.role}})</a></li>
+                <li><a href="" ng-click="logOut()">LogOut</a></li>
             </ul>
         </div>
     </div>
