@@ -1,11 +1,15 @@
 ﻿<div align="center">
     <div ng-repeat="value in stats">
         Name: {{value.name}} <br>
-        Money: {{value.money}} <br>
+        Money: {{value.money}}$ <br>
         Points: {{value.stats}} <br>
-        He bought: <br />
+        He bought products: <br />
         <div ng-repeat="product in value.products">
-            {{product.name}} for  {{product.price}}$
+            {{product.name}} for  {{product.price}}$ 
+        </div>
+        He bought wiski in next session: <br>
+        <div ng-repeat="param in value.wiski">
+            {{param}}
         </div>
         <hr />
     </div>
