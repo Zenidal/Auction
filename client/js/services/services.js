@@ -51,6 +51,13 @@ angular.module('app.services', ['ngResource'])
             });
         }
     ])
+    .factory('wiskiService', [
+        '$resource', function ($resource) {
+            return $resource(baseUrl + "BuyWiski", {}, {
+
+            });
+        }
+    ])
     .factory('startGameService', [
         '$resource', function ($resource) {
             return $resource(baseUrl + "StartGame", {}, {

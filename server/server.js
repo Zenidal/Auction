@@ -74,4 +74,9 @@ app.get('/BuyProduct', function (req, res) {
     res.status(200).send();
 });
 
+app.get('/BuyWiski', function (req, res) {
+    game.buyWiski(req.query.sessionId, req.query.userId);
+    res.status(200).send();
+});
+
 app.listen(1337);

@@ -39,15 +39,19 @@ angular.module('app.controllers', [])
         }])
 
      .controller('GameCtrl', ['$scope', '$location', 'authService', 'getSessionService', '$interval', 'getMService',
-         'setCurrentStateService', '$timeout', 'getGameStateService', 'buyProductService',
+         'setCurrentStateService', '$timeout', 'getGameStateService', 'buyProductService', 'wiskiService',
         function ($scope, $location, authService, getSessionService, $interval, getMService,
-            setCurrentStateService, $timeout, getGameStateService, buyProductService) {
+            setCurrentStateService, $timeout, getGameStateService, buyProductService, wiskiService) {
             if (authService.authentication.isAuth == false) {
                 $location.path('/Login');
             } else {
 
                 $scope.buy = function () {
                     buyProductService.get({ sessionId: $scope.session.id, userId: authService.authentication.id });
+                };
+
+                $scope.buyWiski = function() {
+                    wiskiService.get({ sessionId: $scope.session.id, userId: authService.authentication.id });
                 };
 
                 var gameStateInterval = $interval(function () {
@@ -142,6 +146,7 @@ angular.module('app.controllers', [])
                     $scope.refreshStatsTime = 1;
                     $scope.stats = statsService.query();;
                 }
+              
 
                 $scope.refreshStats();
 

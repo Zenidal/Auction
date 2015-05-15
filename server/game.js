@@ -22,6 +22,7 @@ var createGame = function () {
 
     game.users.forEach(function (element, key) {
         game.users[key].products = [];
+        game.users[key].wiski = [];
     });
 
     for (var i = 0; i < 3; i++) {
@@ -67,6 +68,20 @@ var setCurrentState = function (id) {
     });
 };
 
+function isHasWiski(sessionId, userId) {
+    var result = false;
+    game.users.forEach(function (element, index) {
+        if (element.id == userId) {
+            element.wiski.forEach(function (value, key) {
+                if (value === sessionId) {
+                    result = true;
+                }
+            });
+        }
+    });
+    return result;
+};
+
 var buyProduct = function (sessionId, userId) {
     var currentSessionIndex = -1;
     game.sessions.forEach(function (element, index) {
@@ -76,9 +91,11 @@ var buyProduct = function (sessionId, userId) {
     });
     game.users.forEach(function (element, index) {
         if (element.id == userId) {
-            if (currentSessionIndex != -1 && game.users[index].money >= game.sessions[currentSessionIndex].product.price && game.sessions[currentSessionIndex].isEnded == false) {
+            if (currentSessionIndex != -1 && (game.users[index].money >= game.sessions[currentSessionIndex].product.price || isHasWiski(sessionId, userId)) && game.sessions[currentSessionIndex].isEnded == false) {
                 game.sessions[currentSessionIndex].isEnded = true;
-                game.users[index].money -= game.sessions[currentSessionIndex].product.price;
+                if (!isHasWiski(sessionId, userId)) {
+                    game.users[index].money -= game.sessions[currentSessionIndex].product.price;
+                }
                 game.users[index].products.push(game.sessions[currentSessionIndex].product);
             }
         }
@@ -93,11 +110,27 @@ var startGame = function () {
     game.state.isBegin = true;
 };
 
+var buyWiski = function (sessionId, userId) {
+    var currentSessionIndex = -1;
+    game.sessions.forEach(function (element, index) {
+        if (element.id == sessionId) {
+            currentSessionIndex = index;
+        }
+    });
+    game.users.forEach(function (element, index) {
+        if (element.id == userId) {
+            if (currentSessionIndex != -1 && game.users[index].money >= 5 && game.sessions[currentSessionIndex].isEnded == false && !isHasWiski(sessionId, userId)) {
+                game.users[index].money -= 5;
+                game.users[index].wiski.push(sessionId);
+            }
+        }
+    });
+};
+
 var getStats = function () {
     game.users.forEach(function (element, index) {
         game.users[index].stats = game.users[index].products.length * 20 - (game.sessions.length - game.users[index].products.length) * 20;
     });
-    console.log(game.users);
     return game.users;
 };
 
@@ -109,4 +142,4 @@ module.exports.stopGame = stopGame;
 module.exports.startGame = startGame;
 module.exports.buyProduct = buyProduct;
 module.exports.getStats = getStats;
-
+module.exports.buyWiski = buyWiski;
