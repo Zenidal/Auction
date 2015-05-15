@@ -1,6 +1,16 @@
-﻿<div class="btn btn-primary" ng-click="stopGame()">
-    Stop game
-</div>
-<div class="btn btn-primary" ng-click="startGame()">
-    Start game
+﻿<div align="center">
+    <div ng-repeat="value in stats">
+        Name: {{value.name}} <br>
+        Money: {{value.money}} <br>
+        Points: {{value.stats}} <br>
+        He bought: <br />
+        <div ng-repeat="product in value.products">
+            {{product.name}} for  {{product.price}}$
+        </div>
+        <hr />
+    </div>
+
+    <div class="btn btn-primary" ng-click="startGame()">
+        Start game
+    </div>
 </div>

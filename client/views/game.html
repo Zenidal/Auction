@@ -8,7 +8,7 @@
         Name: {{session.product.name}} <br>
         MinPrice: {{session.product.minPrice}}<br>
         CurrentPrice: {{session.product.price}}
-        <div class="btn btn-primary create-game" ng-click="buy()">
+        <div class="btn btn-primary create-game" ng-click="buy()" ng-disabled="user.money<session.product.price">
             Buy
         </div>
     </div>

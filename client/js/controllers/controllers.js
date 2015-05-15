@@ -124,11 +124,27 @@ angular.module('app.controllers', [])
             }
         }])
 
-    .controller('DashboardCtrl', ['$scope', '$location', 'authService', 'stopGameService', 'startGameService',
-        function ($scope, $location, authService, stopGameService, startGameService) {
+    .controller('DashboardCtrl', ['$scope', '$location', 'authService', 'stopGameService', 'startGameService', 'statsService', '$interval',
+        function ($scope, $location, authService, stopGameService, startGameService, statsService, $interval) {
             if (authService.authentication.role != 'admin') {
                 $location.path('/Login');
             } else {
+
+                var statsInterval = $interval(function () {
+                    if ($scope.refreshStatsTime == 0) {
+                        $scope.refreshStats();
+                    } else {
+                        $scope.refreshStatsTime--;
+                    }
+                }, 1000);
+
+                $scope.refreshStats = function () {
+                    $scope.refreshStatsTime = 1;
+                    $scope.stats = statsService.query();;
+                }
+
+                $scope.refreshStats();
+
                 $scope.stopGame = function () {
                     stopGameService.get();
                 };
@@ -136,6 +152,10 @@ angular.module('app.controllers', [])
                 $scope.startGame = function () {
                     startGameService.get();
                 };
+
+                $scope.$on('$destroy', function () {
+                    $interval.cancel(statsInterval);
+                });
             }
         }])
 

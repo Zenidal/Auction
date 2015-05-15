@@ -20,6 +20,10 @@ var createGame = function () {
     game.users = user.getUsers();
     game.state.isCreated = true;
 
+    game.users.forEach(function (element, key) {
+        game.users[key].products = [];
+    });
+
     for (var i = 0; i < 3; i++) {
         game.products.push({
             name: String.fromCharCode(97 + i),
@@ -70,12 +74,8 @@ var buyProduct = function (sessionId, userId) {
             currentSessionIndex = index;
         }
     });
-    console.log(currentSessionIndex);
     game.users.forEach(function (element, index) {
         if (element.id == userId) {
-            if (!element.products) {
-                game.users[index].products = [];
-            }
             if (currentSessionIndex != -1 && game.users[index].money >= game.sessions[currentSessionIndex].product.price && game.sessions[currentSessionIndex].isEnded == false) {
                 game.sessions[currentSessionIndex].isEnded = true;
                 game.users[index].money -= game.sessions[currentSessionIndex].product.price;
